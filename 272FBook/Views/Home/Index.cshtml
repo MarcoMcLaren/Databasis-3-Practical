@@ -1,0 +1,71 @@
+﻿@model RandomCourseFBook.Models.StudentRecordsVM
+
+<div class="row">
+    <br>
+    <div class="col-md-2">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Grade
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>@Html.ActionLink("Reset", "SetGradeFilter", "Home", new { gradeSymbol = "Reset" }, null)</li>
+                @foreach (var gradeRange in RandomCourseFBook.Models.DefaultDataService.markRanges)
+                {
+                    <!--quick and horrible hiding logic-->
+                    if (RandomCourseFBook.Controllers.HomeController.minFilter != gradeRange.MinOfRange && RandomCourseFBook.Controllers.HomeController.maxFilter != gradeRange.MaxOfRange)
+                    {
+                        <li>@Html.ActionLink(gradeRange.Symbol, "SetGradeFilter", "Home", new { gradeSymbol = gradeRange.Symbol }, null)</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Gender
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!--quick and horrible hiding logic-->
+                @if (RandomCourseFBook.Controllers.HomeController.genderFilter != "Reset")
+                {
+                    <li>@Html.ActionLink("Reset", "SetGenderFilter", "Home", new { gender = "Reset" }, null)</li>
+
+                }
+                @if (RandomCourseFBook.Controllers.HomeController.genderFilter != "Male")
+                {
+                    <li>@Html.ActionLink("Male", "SetGenderFilter", "Home", new { gender = "Male" }, null)</li>
+
+                }
+                @if (RandomCourseFBook.Controllers.HomeController.genderFilter != "Female")
+                {
+                    <li>@Html.ActionLink("Female", "SetGenderFilter", "Home", new { gender = "Female" }, null)</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Avatar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var studentRecord in Model.Students)
+                {
+                <tr>
+                    <td>@studentRecord.FirstName</td>
+                    <td>@studentRecord.Surname</td>
+                    <td>@studentRecord.ID</td> <!--Replace the id with the an image associated with the student-->
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
