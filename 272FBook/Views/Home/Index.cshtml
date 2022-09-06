@@ -62,7 +62,9 @@
                 <tr>
                     <td>@studentRecord.FirstName</td>
                     <td>@studentRecord.Surname</td>
-                    <td>@studentRecord.ID</td> <!--Replace the id with the an image associated with the student-->
+                    <td>
+                     <img src="data:image/png;base64,@Model.GetImageOf(studentRecord.ID)" width="150" height="150"/>
+                     </td> <!--Replace the id with the an image associated with the student-->
                 </tr>
                 }
             </tbody>
