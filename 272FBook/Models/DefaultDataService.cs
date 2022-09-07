@@ -89,7 +89,7 @@ namespace RandomCourseFBook.Models
             try
             {
                 openConnection();
-                SqlCommand command = new SqlCommand("SELECT DISTINCT Students.ID,Students.FirstName, Students.LastName,Images.B64Image from Students INNER JOIN Images ON Students.ID = Images.StudentID WHERE Grade > '" + min + "' AND Grade < '" + max + "'", currConnection);
+                SqlCommand command = new SqlCommand("SELECT DISTINCT Students.ID,Students.FirstName, Students.LastName,Images.B64Image from Students INNER JOIN Images ON Students.ID = Images.StudentID WHERE Grade > '" + min + "' AND Grade < '" + max + "' AND Sex = '"+sex+"'", currConnection);
                 using (SqlDataReader reader = command.ExecuteReader()) //lees van databasisse gebruik ExcecuteRader, NA databasis stuur ExcecuteNonQuery
                 {
                     while (reader.Read())
@@ -122,7 +122,7 @@ namespace RandomCourseFBook.Models
                     while (reader.Read())
                     {
                         Image tmpDest = new Image();
-                        tmpDest.ImageRaw = "B64Image";
+                        tmpDest.ImageRaw = reader["B64Image"].ToString();
                         tmpDest.StudentID = Convert.ToInt32(reader["StudentID"]);
                         images.Add(tmpDest);
                     }
